@@ -5,6 +5,16 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
+    """
+    Input: 
+    messages_filepath -> The file path where the messages datasaet is stored.
+    categories_filepath -> The file path where the categories dataset is stored.
+    
+    Output:
+    df -> The concatenation of the messages and categories datasets.
+    
+    This function takes in messages and categories data and merges them. It then converts the categories column from long format to wide format.
+    """
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
     df = messages.join(categories, lsuffix = '_message', rsuffix = '_category')
@@ -26,6 +36,15 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+     """
+    Input: 
+    df -> The dataframe to be cleaned.
+    
+    Output:
+    df -> The cleaned dataframe.
+    
+    This function takes in a dataframe and cleans it by removing duplicate entries and ensuring that each category is strictly binary.
+    """
     df.loc[df['related'] == 2].index #193 rows had a value of '2' when it should be 0 or 1
     df.drop(index = df.loc[df['related'] == 2].index, inplace = True)
     df.related.unique()
@@ -37,6 +56,13 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
+     """
+    Input: 
+    df -> The dataframe to be saved.
+    database_filename -> The SQL Lite database file name where the dataframe will be saved.
+    
+    This function takes in a dataframe and saves it to a SQL Lite database table.
+    """
     engine = create_engine('sqlite:///'+database_filename)
     df.to_sql('messages_classified', engine, if_exists='replace', index=False)
     pass  
