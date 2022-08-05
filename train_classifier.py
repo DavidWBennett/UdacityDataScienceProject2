@@ -63,6 +63,12 @@ def tokenize(text):
 
 
 def build_model():
+    """
+    Output:
+    pipeline -> The model to be used to classify the tokenized text.
+    
+    This function prepares a pipeline with a count vectorizer, TF-IDF transformer, and a multi output classifier (using a random forest classifier).
+    """
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer = tokenize)),
         ('tfidf', TfidfTransformer()),
@@ -78,6 +84,16 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    """
+    Input:
+    model -> The pipeline created in the build_model() function.
+    X_test -> The features of the test set to be used for model training.
+    Y_test -> The reponse (message categories) to be used for model training.
+    category_names -> The list of categories that the text can be classified into.
+    
+    This function trains the model build in the build_model() function. It then prints a classification report based on the training data, then performs a grid search to 
+    determine the optimal parameters. These optimal parameters are then printed out as well.
+    """
     predicted = model.predict(X_test)
     Y_true = Y_test.reset_index(drop = True)
     Y_pred = predicted
@@ -87,19 +103,24 @@ def evaluate_model(model, X_test, Y_test, category_names):
         'clf__estimator': [RandomForestClassifier(), AdaBoostClassifier()]
         }
 
-
     cv = GridSearchCV(model, param_grid=parameters)
     print(cv)
     cv.fit(X_test, Y_test)
     y_pred = cv.predict(X_test)
     print("\nBest Parameters:", cv.best_params_)
-    print(classification_report(Y_true, Y_pred, target_names=target_names))
+    #print(classification_report(Y_true, Y_pred, target_names=target_names))
     print("-----------------Evaluating Model Succeeded--------------------")
     pass
 
 
 def save_model(model, model_filepath):
-# save
+     """
+    Input: 
+    model -> The optimzed model to be saved.
+    model_filepath -> The file path where the pickled model will be saved.
+    
+    This function takes in a model, pickles (serializes) it, then saves it.
+    """
     pickle.dump(model,open(model_filepath,'wb'))
     print("-----------------Saving Model Succeeded--------------------")
     pass
