@@ -19,6 +19,17 @@ from sklearn.model_selection import GridSearchCV
 import pickle
 
 def load_data(database_filepath):
+    """
+    Input: 
+    database_filepath -> The database filepath where the data is stored.
+    
+    Output:
+    X -> The features that will be used to classify the messages.
+    Y -> The designated classification for the tweets. This will be used in building a machine learning model.
+    df -> The dataframe to be used in the classification model.
+    
+    This function loads the data to be used in the  machine learning model.
+    """
     engine = create_engine('sqlite:///'+database_filepath)
     df = pd.read_sql_table('messages_classified', engine)
     X = df["message"]
@@ -30,6 +41,15 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    """
+    Input: 
+    text -> The text (strings) that will be converted into tokens.
+    
+    Output:
+   clean_tokens -> The prepared tokens to be used in a machine learning model.
+    
+    This function takes a corpus of text and lemmatizes it into clean tokens to be used in a machine learning model.
+    """
     tokens = nltk.word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
     
