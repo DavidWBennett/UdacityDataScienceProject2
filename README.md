@@ -13,11 +13,12 @@ The third file, "run.py" creates a web app. The web app has two components- firs
 
 This project brings together data engineering skills (process_data.py), builds a machine learning pipeline (train_classifier.py) and then puts the information in a digestible format on the internet (run.py).
 
-##Instructions
+## Instructions
 
-First, you will need to clone this repository down to your local machine. 
-Second, you will need to create a virtual environment. You can do this by running the following command in the command line: `python create virtualmachine'
-Third, you will run the following commands in the project's root directory to set up your database and model.
+-First, you will need to clone this repository down to your local machine. 
+-Second, you will need to create a virtual environment. You can do this by running the following command in the command line: 
+    -`python create virtualmachine'
+-Third, you will run the following commands in the project's root directory to set up your database and model.
     - To run ETL pipeline that cleans data and stores in database
         `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
     - To run ML pipeline that trains classifier and saves
