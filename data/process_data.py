@@ -36,7 +36,7 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
-     """
+    """
     Input: 
     df -> The dataframe to be cleaned.
     
@@ -56,7 +56,7 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
-     """
+    """
     Input: 
     df -> The dataframe to be saved.
     database_filename -> The SQL Lite database file name where the dataframe will be saved.
@@ -74,7 +74,7 @@ def main():
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]
 
         print('Loading data...\n    MESSAGES: {}\n    CATEGORIES: {}'
-              .format(messages_filepath, categories_filepath))
+            .format(messages_filepath, categories_filepath))
         df = load_data(messages_filepath, categories_filepath)
 
         print('Cleaning data...')
@@ -87,11 +87,11 @@ def main():
     
     else:
         print('Please provide the filepaths of the messages and categories '\
-              'datasets as the first and second argument respectively, as '\
-              'well as the filepath of the database to save the cleaned data '\
-              'to as the third argument. \n\nExample: python process_data.py '\
-              'disaster_messages.csv disaster_categories.csv '\
-              'DisasterResponse.db')
+            'datasets as the first and second argument respectively, as '\
+            'well as the filepath of the database to save the cleaned data '\
+            'to as the third argument. \n\nExample: python process_data.py '\
+            'disaster_messages.csv disaster_categories.csv '\
+            'DisasterResponse.db')
 
 
 if __name__ == '__main__':
