@@ -16,15 +16,14 @@ This project brings together data engineering skills (process_data.py), builds a
 ## Instructions
 
 1. You will need to clone this repository down to your local machine. 
-2. You will need to create a virtual environment. You can do this by running the following command in the command line: 
-    `python create virtualmachine'
-3.  You will run the following commands in the project's root directory to set up your database and model.
+2.  You will run the following commands in the project's root directory to set up your database and model.
     - To run ETL pipeline that cleans data and stores in database
-        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
+        ###  `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
     - To run ML pipeline that trains classifier and saves
-        `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
-        
- 4. You will run the following command in the app's directory to run the web app.
-  -`python run.py`
+        ###  `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
+ 3. You will run the following command in the app's directory to run the web app. 
+      - To change the directory use the following command.
+        ### `cd app`
+        ### `python run.py`
   
  To view the web app, go to: http://0.0.0.0:3001/
