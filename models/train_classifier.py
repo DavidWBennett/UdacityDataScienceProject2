@@ -46,7 +46,7 @@ def tokenize(text):
     text -> The text (strings) that will be converted into tokens.
     
     Output:
-   clean_tokens -> The prepared tokens to be used in a machine learning model.
+    clean_tokens -> The prepared tokens to be used in a machine learning model.
     
     This function takes a corpus of text and lemmatizes it into clean tokens to be used in a machine learning model.
     """
@@ -114,7 +114,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
-     """
+    """
     Input: 
     model -> The optimzed model to be saved.
     model_filepath -> The file path where the pickled model will be saved.
@@ -149,9 +149,9 @@ def main():
 
     else:
         print('Please provide the filepath of the disaster messages database '\
-              'as the first argument and the filepath of the pickle file to '\
-              'save the model to as the second argument. \n\nExample: python '\
-              'train_classifier.py ../data/DisasterResponse.db classifier.pkl')
+            'as the first argument and the filepath of the pickle file to '\
+            'save the model to as the second argument. \n\nExample: python '\
+            'train_classifier.py ../data/DisasterResponse.db classifier.pkl')
 
 
 if __name__ == '__main__':
