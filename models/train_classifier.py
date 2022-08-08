@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 import nltk
 nltk.download('punkt')
 nltk.download('wordnet')
+nltk.download('omw-1.4')
 from sklearn.pipeline import Pipeline
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.feature_extraction.text import CountVectorizer
@@ -35,8 +36,9 @@ def load_data(database_filepath):
     X = df["message"]
     Y = df[df.columns[5:]].astype(int)
     text = X.values.tolist()
+    category_names = list(Y.columns)
     print("-----------------Loading Data Succeeded--------------------")
-    return X, Y, df
+    return X, Y, category_names
     pass
 
 
@@ -77,7 +79,6 @@ def build_model():
     
     #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
     
-
     print("-----------------Building Model Succeeded--------------------")
     return pipeline
     pass
@@ -97,17 +98,17 @@ def evaluate_model(model, X_test, Y_test, category_names):
     predicted = model.predict(X_test)
     Y_true = Y_test.reset_index(drop = True)
     Y_pred = predicted
-    target_names = category_names#list(y.columns)
+    target_names = category_names#list(Y.columns)
     print(classification_report(Y_true, Y_pred, target_names=target_names))
     parameters = {
         'clf__estimator': [RandomForestClassifier(), AdaBoostClassifier()]
         }
 
-    cv = GridSearchCV(model, param_grid=parameters)
-    print(cv)
-    cv.fit(X_test, Y_test)
-    y_pred = cv.predict(X_test)
-    print("\nBest Parameters:", cv.best_params_)
+    ##cv = GridSearchCV(model, param_grid=parameters)
+    ##print(cv)
+    ##cv.fit(X_test, Y_test)
+    ##Y_pred = cv.predict(X_test)
+    ##print("\nBest Parameters:", cv.best_params_)
     #print(classification_report(Y_true, Y_pred, target_names=target_names))
     print("-----------------Evaluating Model Succeeded--------------------")
     pass
