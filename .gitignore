@@ -1,6 +1,4 @@
 venv/
 *db
 *pkl
-train_classifier1.py
 run1.py
-train_classifier2.py
