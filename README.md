@@ -17,7 +17,7 @@ This project brings together data engineering skills (process_data.py), builds a
 
 1. You will need to clone this repository down to your local machine. 
 2. It is recommended that you create a virtual environment first. This can be done by running the following from the command line:
-    - ### `python -m venv venv`
+    ### `python -m venv venv`
 3. After activating your virtual environment, run this code to load in the requirements:
     ### `python -m pip install -r requirements.txt`
 3.  You will run the following commands in the project's root directory to set up your database and model.
@@ -30,4 +30,7 @@ This project brings together data engineering skills (process_data.py), builds a
         ### `cd app`
         ### `python run.py`
   
- To view the web app, go to: http://0.0.0.0:3001/
+ To view the web app, go to the URL provided in the terminal.
+ 
+ ## Acknowledgments
+ This project was created as a requirement for the Udacity Data Science Nanodegree. The data was provided by Appen (formerly Figure 8). 
