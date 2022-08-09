@@ -8,23 +8,14 @@ from nltk.tokenize import word_tokenize
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
-import joblib#from sklearn.externals import joblib
-
+#from sklearn.externals import joblib
+import joblib
 from sqlalchemy import create_engine
 
 
 app = Flask(__name__)
 
 def tokenize(text):
-    """
-    Input: 
-    text -> The text (strings) that will be converted into tokens.
-    
-    Output:
-    clean_tokens -> The prepared tokens to be used in a machine learning model.
-    
-    This function takes a corpus of text and lemmatizes it into clean tokens to be used in a machine learning model.
-    """
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -36,26 +27,22 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///../data/DisasterResponse.db')#../data/
+engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table('messages_classified', engine)
 
 # load model
-model = joblib.load('../models/classifier.pkl')
-
+model = joblib.load("../models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
 @app.route('/index')
 def index():
-    """
-    This function creates the visuals to be used on the web app.
-    """
+    
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
-    
     category_counts = df.drop(labels = ["id_message", "message", "genre", "id_category"], axis = 1).sum().sort_values(ascending = False)
     category_names = list(category_counts.index)
     
@@ -66,8 +53,6 @@ def index():
             'data': [
                 Bar(
                     x=genre_names,
-                    #y=category_counts,
-                    #x=category_names
                     y=genre_counts
                 )
             ],
@@ -78,8 +63,7 @@ def index():
                     'title': "Count"
                 },
                 'xaxis': {
-                    #'title': "Genre"
-                    'title': "Classification"
+                    'title': "Genre"
                 }
             }
         }, 
@@ -106,7 +90,6 @@ def index():
         }
     ]
     
-    
     # encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
@@ -118,9 +101,6 @@ def index():
 # web page that handles user query and displays model results
 @app.route('/go')
 def go():
-    """
-    This function prepares the search bar and model (behind the scenes) so that the user can input text and have it classified.
-    """
     # save user input in query
     query = request.args.get('query', '') 
 
@@ -137,7 +117,7 @@ def go():
 
 
 def main():
-    app.run(host='0.0.0.0', port=3000, debug=True)
+    app.run(host='0.0.0.0', port=3001, debug=True)
 
 
 if __name__ == '__main__':

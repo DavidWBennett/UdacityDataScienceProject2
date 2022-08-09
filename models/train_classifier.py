@@ -76,6 +76,7 @@ def build_model():
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(RandomForestClassifier())),
     ])
+   
     
     #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
     
@@ -99,17 +100,18 @@ def evaluate_model(model, X_test, Y_test, category_names):
     Y_true = Y_test.reset_index(drop = True)
     Y_pred = predicted
     target_names = category_names#list(Y.columns)
-    print(classification_report(Y_true, Y_pred, target_names=target_names))
+    #print(classification_report(Y_true, Y_pred, target_names=target_names))
+    
     parameters = {
         'clf__estimator': [RandomForestClassifier(), AdaBoostClassifier()]
         }
-
-    ##cv = GridSearchCV(model, param_grid=parameters)
-    ##print(cv)
-    ##cv.fit(X_test, Y_test)
-    ##Y_pred = cv.predict(X_test)
-    ##print("\nBest Parameters:", cv.best_params_)
-    #print(classification_report(Y_true, Y_pred, target_names=target_names))
+    cv = GridSearchCV(model, param_grid=parameters)
+    print(cv)
+    
+    cv.fit(X_test, Y_test)
+    Y_pred = cv.predict(X_test)
+    print("\nBest Parameters:", cv.best_params_)
+    print(classification_report(Y_true, Y_pred, target_names=target_names))
     print("-----------------Evaluating Model Succeeded--------------------")
     pass
 
