@@ -31,3 +31,6 @@ This project brings together data engineering skills (process_data.py), builds a
         ### `python run.py`
   
  To view the web app, go to the URL provided in the terminal.
+ 
+ ## Acknowledgments
+ This project was created as a requirement for the Udacity Data Science Nanodegree. The data was provided by Appen (formerly Figure 8). 
